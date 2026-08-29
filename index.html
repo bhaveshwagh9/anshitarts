@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anshita Arts - Catalogue</title>
   
+  <!-- Modern Font & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 
   <style>
     :root {
-      /* Vibrant Royalty Palette inspired by Anshita Arts Logo */
+      /* Palette inspired by Anshita Arts Logo */
       --bg-color: #fcf8f2; /* Warm Cream Background */
       --card-bg: #ffffff;
       --text-main: #2b1810;
@@ -26,18 +27,10 @@
       --maroon-gradient: linear-gradient(135deg, #800020 0%, #4a0012 100%);
       --whatsapp-color: #25d366;
       
-      /* Status Colors */
-      --status-pending-bg: #fff7ed;
-      --status-pending-border: #fdba74;
-      --status-pending-text: #c2410c;
-
-      --status-progress-bg: #f0f9ff;
-      --status-progress-border: #7dd3fc;
-      --status-progress-text: #0369a1;
-
-      --status-completed-bg: #f0fdf4;
-      --status-completed-border: #86efac;
-      --status-completed-text: #15803d;
+      /* Distinct Badge Color for "Booked" Only */
+      --status-booked-bg: #fce7f3;
+      --status-booked-border: #fbcfe8;
+      --status-booked-text: #9d174d;
     }
 
     * {
@@ -175,7 +168,7 @@
     .img-wrapper {
       width: 100%;
       height: 280px;
-      background-color: #f7f3ee; /* Soft background fill for uncropped areas */
+      background-color: #f7f3ee;
       position: relative;
       display: flex;
       align-items: center;
@@ -188,7 +181,7 @@
       max-height: 100%;
       width: auto;
       height: auto;
-      object-fit: contain; /* Prevents cropping */
+      object-fit: contain;
       cursor: pointer;
     }
 
@@ -223,7 +216,7 @@
       margin-bottom: 12px;
     }
 
-    /* Status Badges */
+    /* Status Badges Styling */
     .badge {
       display: inline-block;
       padding: 4px 12px;
@@ -235,22 +228,19 @@
       border: 1px solid transparent;
     }
 
-    .badge-pending { 
-      background: var(--status-pending-bg); 
-      border-color: var(--status-pending-border);
-      color: var(--status-pending-text); 
+    /* Distinct highlight ONLY for Booked status */
+    .badge-booked { 
+      background: var(--status-booked-bg); 
+      border-color: var(--status-booked-border);
+      color: var(--status-booked-text); 
     }
-    .badge-in-progress, .badge-inprogress { 
-      background: var(--status-progress-bg); 
-      border-color: var(--status-progress-border);
-      color: var(--status-progress-text); 
+
+    /* Default neutral styling for all other statuses */
+    .badge-default { 
+      background: #f5f5f4; 
+      border-color: #e7e5e4;
+      color: var(--text-muted); 
     }
-    .badge-completed { 
-      background: var(--status-completed-bg); 
-      border-color: var(--status-completed-border);
-      color: var(--status-completed-text); 
-    }
-    .badge-default { background: #f5f5f4; color: var(--text-muted); }
 
     /* Gallery Thumbnails */
     .gallery-section {
@@ -387,12 +377,13 @@
       return idMatch && idMatch[1] ? `https://lh3.googleusercontent.com/d/${idMatch[1]}` : '';
     }
 
+    // Only 'booked' gets special badge class; everything else uses 'badge-default'
     function getStatusClass(status) {
       if (!status) return 'badge-default';
-      const clean = status.toLowerCase().replace(/\s+/g, '');
-      if (clean.includes('pending')) return 'badge-pending';
-      if (clean.includes('progress')) return 'badge-in-progress';
-      if (clean.includes('completed')) return 'badge-completed';
+      const clean = status.toLowerCase().trim();
+      if (clean.includes('booked')) {
+        return 'badge-booked';
+      }
       return 'badge-default';
     }
 
@@ -406,13 +397,13 @@
           if (char === '"') {
             insideQuotes = !insideQuotes;
           } else if (char === ',' && !insideQuotes) {
-            row.push(entry.trim());
+            row.push(entry.trim().replace(/^"|"$/g, ''));
             entry = '';
           } else {
             entry += char;
           }
         }
-        row.push(entry.trim());
+        row.push(entry.trim().replace(/^"|"$/g, ''));
         return row;
       });
     }
