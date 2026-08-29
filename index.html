@@ -31,7 +31,7 @@
 
     .main-img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       background-color: #eee;
     }
@@ -62,14 +62,14 @@
 
     .gallery {
       display: flex;
-      gap: 5px;
+      gap: 8px;
       margin-top: 10px;
       flex-wrap: wrap;
     }
 
     .thumb-img {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       object-fit: cover;
       border-radius: 4px;
       border: 1px solid #ddd;
@@ -82,13 +82,42 @@
   <div id="cardsWrapper" class="card-container">Loading catalog...</div>
 
   <script>
+    // Replace with your published CSV URL
     const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv';
 
-    // Helper: Converts Google Drive share link to direct image link
-    function formatDriveUrl(driveUrl) {
-      if (!driveUrl) return '';
-      const match = driveUrl.match(/id=([a-zA-Z0-9_-]+)/) || driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : driveUrl.trim();
+    // Converts ANY Google Drive link/ID into a direct viewable image URL
+    function formatDriveUrl(rawInput) {
+      if (!rawInput) return '';
+      
+      // Match 33+ character Google Drive File ID
+      const idMatch = rawInput.match(/([a-zA-Z0-9_-]{25,})/);
+      if (idMatch && idMatch[1]) {
+        return `https://lh3.googleusercontent.com/d/${idMatch[1]}`;
+      }
+      return '';
+    }
+
+    // Robust CSV parser that handles quotes and extra commas safely
+    function parseCsv(text) {
+      const lines = text.split('\n');
+      return lines.map(line => {
+        const row = [];
+        let insideQuotes = false;
+        let entry = '';
+        
+        for (let char of line) {
+          if (char === '"') {
+            insideQuotes = !insideQuotes;
+          } else if (char === ',' && !insideQuotes) {
+            row.push(entry.trim());
+            entry = '';
+          } else {
+            entry += char;
+          }
+        }
+        row.push(entry.trim());
+        return row;
+      });
     }
 
     async function fetchGalleryData() {
@@ -96,51 +125,59 @@
         const response = await fetch(sheetCsvUrl);
         const csvText = await response.text();
         
-        // Split by lines
-        const rows = csvText.split('\n').map(row => row.split(','));
+        const rows = parseCsv(csvText);
         const container = document.getElementById('cardsWrapper');
         container.innerHTML = '';
 
-        // Expecting columns: [0] Timestamp, [1] Title, [2] Size, [3] Status, [4] Main Image, [5] Extra Images
+        // Skip header row (i = 1)
         for (let i = 1; i < rows.length; i++) {
-          if (rows[i].length >= 4) {
-            const title = rows[i][1];
-            const size = rows[i][2];
-            const status = rows[i][3];
-            const mainImgRaw = rows[i][4] || '';
-            const extraImgsRaw = rows[i][5] || '';
+          const row = rows[i];
+          if (row.length < 4 || !row[1]) continue;
 
-            const mainImgSrc = formatDriveUrl(mainImgRaw);
-            
-            // Handle multiple extra images (Google Sheets separates multiple uploads with comma/space)
-            const extraImgsList = extraImgsRaw.split(',').map(url => formatDriveUrl(url)).filter(url => url);
+          // Standard Google Form structure:
+          // [0] Timestamp | [1] Title | [2] Size | [3] Status | [4] Main Image | [5] View More Images
+          const title = row[1];
+          const size = row[2];
+          const status = row[3];
+          const mainImgRaw = row[4] || '';
+          const extraImgsRaw = row[5] || '';
 
-            let extraImagesHtml = '';
-            if (extraImgsList.length > 0) {
-              extraImagesHtml = `
-                <div style="margin-top:10px;"><strong>More Images:</strong></div>
-                <div class="gallery">
-                  ${extraImgsList.map(img => `<img src="${img}" class="thumb-img" alt="extra">`).join('')}
-                </div>
-              `;
-            }
+          const mainImgSrc = formatDriveUrl(mainImgRaw);
 
-            const cardHtml = `
-              <div class="card">
-                <img src="${mainImgSrc}" class="main-img" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-                <div class="card-content">
-                  <h3 class="card-title">${title}</h3>
-                  <p class="card-detail"><strong>Size:</strong> ${size}</p>
-                  <p class="card-detail"><strong>Status:</strong> <span class="status-badge">${status}</span></p>
-                  ${extraImagesHtml}
-                </div>
+          // Extract multiple images if present in the "View More" column
+          const extraMatches = extraImgsRaw.match(/([a-zA-Z0-9_-]{25,})/g) || [];
+          const extraImgUrls = extraMatches.map(id => `https://lh3.googleusercontent.com/d/${id}`);
+
+          let extraImagesHtml = '';
+          if (extraImgUrls.length > 0) {
+            extraImagesHtml = `
+              <div style="margin-top:12px;"><strong>View More Images:</strong></div>
+              <div class="gallery">
+                ${extraImgUrls.map(url => `
+                  <a href="${url}" target="_blank">
+                    <img src="${url}" class="thumb-img" alt="Additional image" onerror="this.style.display='none'">
+                  </a>
+                `).join('')}
               </div>
             `;
-            container.innerHTML += cardHtml;
           }
+
+          const cardHtml = `
+            <div class="card">
+              <img src="${mainImgSrc}" class="main-img" alt="${title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Accessible';">
+              <div class="card-content">
+                <h3 class="card-title">${title}</h3>
+                <p class="card-detail"><strong>Size:</strong> ${size}</p>
+                <p class="card-detail"><strong>Status:</strong> <span class="status-badge">${status}</span></p>
+                ${extraImagesHtml}
+              </div>
+            </div>
+          `;
+          container.innerHTML += cardHtml;
         }
       } catch (err) {
         console.error('Failed to parse sheet data', err);
+        document.getElementById('cardsWrapper').innerHTML = '<p>Error loading data. Check console.</p>';
       }
     }
 
