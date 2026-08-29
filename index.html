@@ -12,22 +12,32 @@
 
   <style>
     :root {
-      --bg-color: #fafaf9;
+      /* Vibrant Royalty Palette inspired by Anshita Arts Logo */
+      --bg-color: #fcf8f2; /* Warm Cream Background */
       --card-bg: #ffffff;
-      --text-main: #1c1917;
-      --text-muted: #78716c;
-      --border-color: #e7e5e4;
-      --primary: #800020; /* Deep Maroon matching the logo */
+      --text-main: #2b1810;
+      --text-muted: #735a4c;
+      --border-color: #ebdcd0;
+      
+      --maroon: #700918;
+      --maroon-dark: #4a030e;
       --gold: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+      --maroon-gradient: linear-gradient(135deg, #800020 0%, #4a0012 100%);
       --whatsapp-color: #25d366;
       
-      /* Status Badge Colors */
-      --status-pending-bg: #fef3c7;
-      --status-pending-text: #92400e;
-      --status-progress-bg: #e0f2fe;
-      --status-progress-text: #075985;
-      --status-completed-bg: #dcfce7;
-      --status-completed-text: #166534;
+      /* Status Colors */
+      --status-pending-bg: #fff7ed;
+      --status-pending-border: #fdba74;
+      --status-pending-text: #c2410c;
+
+      --status-progress-bg: #f0f9ff;
+      --status-progress-border: #7dd3fc;
+      --status-progress-text: #0369a1;
+
+      --status-completed-bg: #f0fdf4;
+      --status-completed-border: #86efac;
+      --status-completed-text: #15803d;
     }
 
     * {
@@ -41,35 +51,35 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding-bottom: 90px; /* Offset for fixed floating actions */
+      padding-bottom: 90px;
       line-height: 1.5;
     }
 
-    /* Mobile Header & Branding */
+    /* Vibrant Header */
     header {
       background: #ffffff;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 3px solid var(--gold);
       padding: 16px;
       text-align: center;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 15px rgba(112, 9, 24, 0.08);
     }
 
     .logo {
-      max-width: 210px;
+      max-width: 220px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
 
-    /* Contact Action Bar (Mobile Priority) */
+    /* Contact Action Bar */
     .contact-bar {
       display: flex;
       justify-content: center;
       gap: 12px;
-      padding: 16px;
+      padding: 18px 16px;
       max-width: 600px;
       margin: 0 auto;
     }
@@ -82,45 +92,55 @@
       gap: 8px;
       padding: 12px 16px;
       border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.95rem;
       text-decoration: none;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn-contact:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
     }
 
     .btn-phone {
-      background-color: var(--primary);
+      background: var(--maroon-gradient);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(128, 0, 32, 0.25);
+      box-shadow: 0 4px 14px rgba(112, 9, 24, 0.3);
     }
 
     .btn-wa {
       background-color: var(--whatsapp-color);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
     }
 
     .section-title {
       text-align: center;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      color: var(--text-main);
-      margin: 12px 0 20px 0;
-      letter-spacing: -0.02em;
+      color: var(--maroon);
+      margin: 8px 0 20px 0;
+      position: relative;
     }
 
-    /* Mobile-First Grid Layout */
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--gold-gradient);
+      margin: 6px auto 0 auto;
+      border-radius: 2px;
+    }
+
+    /* Grid Layout */
     .card-container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 16px;
       display: grid;
-      grid-template-columns: 1fr; /* Default 1 column for phones */
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
 
     @media (min-width: 640px) {
@@ -139,32 +159,42 @@
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      box-shadow: 0 6px 18px rgba(112, 9, 24, 0.05);
       display: flex;
       flex-direction: column;
+      transition: transform 0.2s ease;
     }
 
-    /* Main Image Container */
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Fixed Image Wrapper (No Cropping) */
     .img-wrapper {
       width: 100%;
-      height: 260px;
-      background-color: #f5f5f4;
+      height: 280px;
+      background-color: #f7f3ee; /* Soft background fill for uncropped areas */
       position: relative;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .main-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain; /* Prevents cropping */
       cursor: pointer;
     }
 
-    /* Card Body */
+    /* Card Content */
     .card-body {
-      padding: 16px;
+      padding: 18px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -179,16 +209,16 @@
     }
 
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--maroon-dark);
     }
 
     .meta-row {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
       margin-bottom: 12px;
     }
@@ -196,73 +226,83 @@
     /* Status Badges */
     .badge {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 20px;
       font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: capitalize;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border: 1px solid transparent;
     }
 
-    .badge-pending { background: var(--status-pending-bg); color: var(--status-pending-text); }
-    .badge-in-progress, .badge-inprogress { background: var(--status-progress-bg); color: var(--status-progress-text); }
-    .badge-completed { background: var(--status-completed-bg); color: var(--status-completed-text); }
+    .badge-pending { 
+      background: var(--status-pending-bg); 
+      border-color: var(--status-pending-border);
+      color: var(--status-pending-text); 
+    }
+    .badge-in-progress, .badge-inprogress { 
+      background: var(--status-progress-bg); 
+      border-color: var(--status-progress-border);
+      color: var(--status-progress-text); 
+    }
+    .badge-completed { 
+      background: var(--status-completed-bg); 
+      border-color: var(--status-completed-border);
+      color: var(--status-completed-text); 
+    }
     .badge-default { background: #f5f5f4; color: var(--text-muted); }
 
     /* Gallery Thumbnails */
     .gallery-section {
       margin-top: auto;
-      padding-top: 12px;
+      padding-top: 14px;
       border-top: 1px dashed var(--border-color);
     }
 
     .gallery-title {
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--text-muted);
+      color: var(--gold);
       margin-bottom: 8px;
     }
 
     .gallery-grid {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       overflow-x: auto;
       padding-bottom: 4px;
     }
 
     .thumb-img {
-      width: 56px;
-      height: 56px;
-      object-fit: cover;
-      border-radius: 8px;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      background-color: #f7f3ee;
+      border-radius: 10px;
       border: 1px solid var(--border-color);
       flex-shrink: 0;
       cursor: pointer;
     }
 
-    /* Sticky Bottom Floating WhatsApp Button (Mobile Specific) */
+    /* Floating WhatsApp Button */
     .floating-wa {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: var(--whatsapp-color);
       color: white;
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      font-size: 32px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       z-index: 999;
       text-decoration: none;
-      transition: transform 0.2s ease;
-    }
-
-    .floating-wa:active {
-      transform: scale(0.9);
     }
 
     /* Lightbox Modal */
@@ -274,14 +314,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.92);
       align-items: center;
       justify-content: center;
     }
 
     .modal-content {
-      max-width: 92%;
-      max-height: 80vh;
+      max-width: 94%;
+      max-height: 85vh;
       border-radius: 8px;
       object-fit: contain;
     }
@@ -291,7 +331,7 @@
       top: 16px;
       right: 20px;
       color: white;
-      font-size: 2rem;
+      font-size: 2.2rem;
       cursor: pointer;
     }
 
@@ -305,10 +345,12 @@
 </head>
 <body>
 
+  <!-- Header with Brand Logo -->
   <header>
     <img src="images/logo.png" alt="Anshita Arts Logo" class="logo">
   </header>
 
+  <!-- Quick Mobile Contact Buttons -->
   <div class="contact-bar">
     <a href="tel:+919876543210" class="btn-contact btn-phone">
       <i class="fa-solid fa-phone"></i> Call Us
@@ -320,21 +362,23 @@
 
   <h2 class="section-title">Our Creations</h2>
 
+  <!-- Item Cards Container -->
   <div id="cardsWrapper" class="card-container">
     <div class="state-msg">Loading catalog items...</div>
   </div>
 
+  <!-- Floating WhatsApp Action Button -->
   <a href="https://wa.me/919876543210?text=Hello%20Anshita%20Arts,%20I%20have%20an%20inquiry" target="_blank" class="floating-wa" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
+  <!-- Lightbox Modal -->
   <div id="imageModal" class="modal" onclick="closeModal()">
     <span class="modal-close">&times;</span>
     <img id="modalImage" class="modal-content" src="" alt="Enlarged view">
   </div>
 
   <script>
-    // Replace with your published CSV link
     const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv';
 
     function formatDriveUrl(rawInput) {
