@@ -3,56 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Item Management</title>
+  <title>Live Form Results</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 600px;
+      max-width: 800px;
       margin: 40px auto;
       padding: 0 20px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background: #f4f4f4;
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    input, select, button {
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 24px;
+      margin-top: 20px;
     }
 
     th, td {
       border: 1px solid #ddd;
-      padding: 10px;
+      padding: 12px;
       text-align: left;
     }
 
@@ -60,69 +28,65 @@
       background-color: #007bff;
       color: white;
     }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Add New Item</h2>
-  <form id="itemForm">
-    <label for="title">Title</label>
-    <input type="text" id="title" placeholder="Enter title" required>
-
-    <label for="size">Size</label>
-    <input type="text" id="size" placeholder="e.g., Small, 100MB, XL" required>
-
-    <label for="status">Status</label>
-    <select id="status" required>
-      <option value="">Select status</option>
-      <option value="Pending">Pending</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select>
-
-    <button type="submit">Add to List</button>
-  </form>
-
-  <h2>Stored Items</h2>
+  <h2>Submitted Results</h2>
   <table>
     <thead>
       <tr>
+        <th>Timestamp</th>
         <th>Title</th>
         <th>Size</th>
         <th>Status</th>
       </tr>
     </thead>
-    <tbody id="dataTable">
-      </tbody>
+    <tbody id="resultsTable">
+      <tr>
+        <td colspan="4">Loading data...</td>
+      </tr>
+    </tbody>
   </table>
 
   <script>
-    const form = document.getElementById('itemForm');
-    const dataTable = document.getElementById('dataTable');
+    // Replace this URL with your Google Sheet's published CSV link
+    const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv';
 
-    form.addEventListener('submit', function(event) {
-      // Prevent full page reload on submission
-      event.preventDefault();
+    async function fetchSheetData() {
+      try {
+        const response = await fetch(sheetCsvUrl);
+        const data = await response.text();
+        
+        // Parse CSV rows
+        const rows = data.split('\n').map(row => row.split(','));
+        const tableBody = document.getElementById('resultsTable');
+        tableBody.innerHTML = '';
 
-      // Retrieve form values
-      const title = document.getElementById('title').value;
-      const size = document.getElementById('size').value;
-      const status = document.getElementById('status').value;
+        // Skip header row (index 0) and display entries
+        for (let i = 1; i < rows.length; i++) {
+          if (rows[i].length >= 4) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${rows[i][0]}</td>
+              <td>${rows[i][1]}</td>
+              <td>${rows[i][2]}</td>
+              <td>${rows[i][3]}</td>
+            `;
+            tableBody.appendChild(tr);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
 
-      // Create a new table row element
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-        <td>${title}</td>
-        <td>${size}</td>
-        <td>${status}</td>
-      `;
-
-      // Append row to the table body
-      dataTable.appendChild(newRow);
-
-      // Reset form fields
-      form.reset();
-    });
+    // Load data when page opens
+    fetchSheetData();
   </script>
 
 </body>
