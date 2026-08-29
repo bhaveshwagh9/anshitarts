@@ -2,56 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Anshita’s Arts | Simple Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item Management</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #faf7f2; }
-    .card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; max-width: 400px; }
-    .title { color: #8b1e0f; margin-top: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select, button {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Anshita’s Arts Test Page</h1>
-  <div id="display">Loading items...</div>
+  <h2>Add New Item</h2>
+  <form id="itemForm">
+    <label for="title">Title</label>
+    <input type="text" id="title" placeholder="Enter title" required>
+
+    <label for="size">Size</label>
+    <input type="text" id="size" placeholder="e.g., Small, 100MB, XL" required>
+
+    <label for="status">Status</label>
+    <select id="status" required>
+      <option value="">Select status</option>
+      <option value="Pending">Pending</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+
+    <button type="submit">Add to List</button>
+  </form>
+
+  <h2>Stored Items</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Size</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="dataTable">
+      </tbody>
+  </table>
 
   <script>
-    // PASTE YOUR PUBLISHED CSV URL HERE inside the quotes
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv";
+    const form = document.getElementById('itemForm');
+    const dataTable = document.getElementById('dataTable');
 
-    async function getData() {
-      const display = document.getElementById('display');
-      try {
-        const response = await fetch(CSV_URL);
-        const text = await response.text();
-        
-        // Parse CSV text into rows
-        const rows = text.trim().split('\n').map(row => row.split(','));
-        const headers = rows[0].map(h => h.trim().toLowerCase().replace(/"/g, ''));
-        
-        display.innerHTML = ''; // Clear loading text
+    form.addEventListener('submit', function(event) {
+      // Prevent full page reload on submission
+      event.preventDefault();
 
-        // Loop through data rows (skipping header row)
-        for (let i = 1; i < rows.length; i++) {
-          const values = rows[i].map(v => v.trim().replace(/"/g, ''));
-          const item = {};
-          headers.forEach((header, index) => {
-            item[header] = values[index] || '';
-          });
+      // Retrieve form values
+      const title = document.getElementById('title').value;
+      const size = document.getElementById('size').value;
+      const status = document.getElementById('status').value;
 
-          display.innerHTML += `
-            <div class="card">
-              <h2 class="title">${item['title'] || 'No Title'}</h2>
-              <p><strong>Size:</strong> ${item['size'] || 'N/A'}</p>
-              <p><strong>Status:</strong> ${item['status'] || 'N/A'}</p>
-            </div>
-          `;
-        }
-      } catch (err) {
-        display.innerHTML = '<p style="color:red;">Failed to connect to Google Sheet.</p>';
-      }
-    }
+      // Create a new table row element
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>${title}</td>
+        <td>${size}</td>
+        <td>${status}</td>
+      `;
 
-    getData();
+      // Append row to the table body
+      dataTable.appendChild(newRow);
+
+      // Reset form fields
+      form.reset();
+    });
   </script>
+
 </body>
 </html>
