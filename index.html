@@ -15,29 +15,37 @@
   <div id="display">Loading items...</div>
 
   <script>
-    // 1. PASTE YOUR SHEET ID HERE
-    const SHEET_ID = "1O77LzCEoaooA64tL7uJa_KrTOPQP8S9-9cRnCXpHCwI";
-
-    // OpenSheet API Endpoint
-    const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`;
+    // PASTE YOUR PUBLISHED CSV URL HERE inside the quotes
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv";
 
     async function getData() {
       const display = document.getElementById('display');
       try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const response = await fetch(CSV_URL);
+        const text = await response.text();
+        
+        // Parse CSV text into rows
+        const rows = text.trim().split('\n').map(row => row.split(','));
+        const headers = rows[0].map(h => h.trim().toLowerCase().replace(/"/g, ''));
         
         display.innerHTML = ''; // Clear loading text
 
-        data.forEach(item => {
+        // Loop through data rows (skipping header row)
+        for (let i = 1; i < rows.length; i++) {
+          const values = rows[i].map(v => v.trim().replace(/"/g, ''));
+          const item = {};
+          headers.forEach((header, index) => {
+            item[header] = values[index] || '';
+          });
+
           display.innerHTML += `
             <div class="card">
-              <h2 class="title">${item.title}</h2>
-              <p><strong>Size:</strong> ${item.size}</p>
-              <p><strong>Status:</strong> ${item.status}</p>
+              <h2 class="title">${item['title'] || 'No Title'}</h2>
+              <p><strong>Size:</strong> ${item['size'] || 'N/A'}</p>
+              <p><strong>Status:</strong> ${item['status'] || 'N/A'}</p>
             </div>
           `;
-        });
+        }
       } catch (err) {
         display.innerHTML = '<p style="color:red;">Failed to connect to Google Sheet.</p>';
       }
