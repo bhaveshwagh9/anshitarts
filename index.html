@@ -2,268 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anshita’s Arts | Festive Draping & Decoration</title>
+  <title>Anshita’s Arts | Simple Test</title>
   <style>
-    :root {
-      --primary: #8b1e0f;
-      --accent: #d4af37;
-      --bg: #faf7f2;
-      --card-bg: #ffffff;
-      --text: #2c2c2c;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: var(--accent);
-      text-align: center;
-      padding: 2rem 1rem;
-      border-bottom: 4px solid var(--accent);
-    }
-
-    header h1 { margin: 0; font-size: 2.2rem; }
-    header p { color: #fff; margin-top: 0.5rem; }
-
-    .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      border: 1px solid #e0dcd5;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-img-container {
-      width: 100%;
-      height: 300px;
-      background-color: #eee;
-    }
-
-    .card-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .card-title {
-      font-size: 1.3rem;
-      color: var(--primary);
-      margin: 0 0 0.5rem 0;
-    }
-
-    .badge {
-      align-self: flex-start;
-      padding: 0.25rem 0.6rem;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-    }
-    .badge-available { background-color: #e6f4ea; color: #137333; }
-    .badge-booked { background-color: #fce8e6; color: #c5221f; }
-
-    .info-group {
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .btn-group {
-      margin-top: auto;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .btn {
-      padding: 0.6rem 1rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-      border: none;
-    }
-
-    .btn-view {
-      background-color: #f0e6d2;
-      color: var(--primary);
-      flex: 1;
-    }
-
-    .btn-whatsapp {
-      background-color: #25d366;
-      color: white;
-      flex: 1;
-    }
-
-    /* Modal / Popup Styling */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      margin-top: 1rem;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
+    body { font-family: sans-serif; padding: 20px; background: #faf7f2; }
+    .card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; max-width: 400px; }
+    .title { color: #8b1e0f; margin-top: 0; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Anshita’s Arts</h1>
-    <p>Customized Ganpati Draping & Festive Decoration Catalogue</p>
-  </header>
-
-  <div class="container" id="gallery">
-    <p style="text-align: center; grid-column: 1/-1;">Loading collection...</p>
-  </div>
-
-  <!-- Popup Modal for Detailed Images -->
-  <div class="modal" id="imageModal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()">&times;</span>
-      <h3 id="modalTitle" style="color: var(--primary); margin-top: 0;"></h3>
-      <div class="gallery-grid" id="modalGallery"></div>
-    </div>
-  </div>
+  <h1>Anshita’s Arts Test Page</h1>
+  <div id="display">Loading items...</div>
 
   <script>
-    const SHEET_ID = "1TM84O2mXHHkQhl3UaYOUggrpOOHOvskbpB2gFP253L8";
-    const PHONE_NUMBER = "1234567890";
-    const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/Form Responses 1`;
+    // 1. PASTE YOUR SHEET ID HERE
+    const SHEET_ID = "YOUR_EXACT_SHEET_ID_HERE";
 
-    let globalItems = [];
+    // OpenSheet API Endpoint
+    const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`;
 
-    async function loadGallery() {
-      const container = document.getElementById('gallery');
+    async function getData() {
+      const display = document.getElementById('display');
       try {
         const response = await fetch(API_URL);
-        globalItems = await response.json();
-        container.innerHTML = ''; 
+        const data = await response.json();
+        
+        display.innerHTML = ''; // Clear loading text
 
-        globalItems.forEach((item, index) => {
-          const isBooked = item["Status"] && item["Status"].toLowerCase() === "booked";
-          const badgeClass = isBooked ? "badge-booked" : "badge-available";
-          const statusText = item["Status"] || "Available";
-
-          const cardHTML = `
+        data.forEach(item => {
+          display.innerHTML += `
             <div class="card">
-              <div class="card-img-container">
-                <img src="${item['Main Image URL']}" alt="${item['Title']}" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
-              </div>
-              <div class="card-content">
-                <span class="badge ${badgeClass}">${statusText}</span>
-                <h3 class="card-title">${item['Title']}</h3>
-                
-                <div class="info-group">
-                  <div><strong>Size:</strong> ${item['Size'] || 'N/A'}</div>
-                  <div><strong>Draping Style:</strong> ${item['Type of Draping'] || 'N/A'}</div>
-                </div>
-
-                <div class="btn-group">
-                  <button class="btn btn-view" onclick="openModal(${index})">View More</button>
-                  <a href="https://wa.me/${PHONE_NUMBER}?text=Hi%20Anshita's%20Arts,%20I%20want%20to%20enquire%20about%20${encodeURIComponent(item['Title'])}" class="btn btn-whatsapp" target="_blank">Enquire</a>
-                </div>
-              </div>
+              <h2 class="title">${item.title}</h2>
+              <p><strong>Size:</strong> ${item.size}</p>
+              <p><strong>Status:</strong> ${item.status}</p>
             </div>
           `;
-          container.innerHTML += cardHTML;
         });
-      } catch (error) {
-        container.innerHTML = '<p style="text-align:center; color:red; grid-column: 1/-1;">Error loading catalogue items.</p>';
+      } catch (err) {
+        display.innerHTML = '<p style="color:red;">Failed to connect to Google Sheet.</p>';
       }
     }
 
-    function openModal(index) {
-      const item = globalItems[index];
-      document.getElementById('modalTitle').innerText = item['Title'];
-      const gallery = document.getElementById('modalGallery');
-      gallery.innerHTML = '';
-
-      // Main image
-      gallery.innerHTML += `<img src="${item['Main Image URL']}">`;
-
-      // Extra images
-      if (item['Additional Images']) {
-        const extraUrls = item['Additional Images'].split(',');
-        extraUrls.forEach(url => {
-          if (url.trim()) {
-            gallery.innerHTML += `<img src="${url.trim()}">`;
-          }
-        });
-      }
-
-      document.getElementById('imageModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-
-    loadGallery();
+    getData();
   </script>
 </body>
 </html>
