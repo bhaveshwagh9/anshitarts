@@ -14,7 +14,7 @@
   <style>
     :root {
       /* Palette inspired by Anshita Arts Logo */
-      --bg-color: #fcf8f2; /* Warm Cream Background */
+      --bg-color: #fcf8f2;
       --card-bg: #ffffff;
       --text-main: #2b1810;
       --text-muted: #735a4c;
@@ -27,10 +27,14 @@
       --maroon-gradient: linear-gradient(135deg, #800020 0%, #4a0012 100%);
       --whatsapp-color: #25d366;
       
-      /* Distinct Badge Color for "Booked" Only */
-      --status-booked-bg: #fce7f3;
-      --status-booked-border: #fbcfe8;
-      --status-booked-text: #9d174d;
+      /* Badge Custom Colors */
+      --status-available-bg: #dcfce7;
+      --status-available-border: #86efac;
+      --status-available-text: #15803d;
+
+      --status-booked-bg: #fee2e2;
+      --status-booked-border: #fca5a5;
+      --status-booked-text: #991b1b;
     }
 
     * {
@@ -44,11 +48,11 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding-bottom: 90px;
+      padding-bottom: 100px; /* Space for the frozen bottom contact bar */
       line-height: 1.5;
     }
 
-    /* Vibrant Header */
+    /* Header */
     header {
       background: #ffffff;
       border-bottom: 3px solid var(--gold);
@@ -67,18 +71,26 @@
       margin: 0 auto;
     }
 
-    /* Contact Action Bar */
+    /* Frozen Bottom Action Bar (Call & WhatsApp) */
     .contact-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: center;
       gap: 12px;
-      padding: 18px 16px;
-      max-width: 600px;
-      margin: 0 auto;
+      padding: 12px 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     }
 
     .btn-contact {
       flex: 1;
+      max-width: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -112,7 +124,7 @@
       font-size: 1.35rem;
       font-weight: 700;
       color: var(--maroon);
-      margin: 8px 0 20px 0;
+      margin: 20px 0 20px 0;
       position: relative;
     }
 
@@ -164,7 +176,7 @@
       transform: translateY(-3px);
     }
 
-    /* Fixed Image Wrapper (No Cropping) */
+    /* Image Wrapper */
     .img-wrapper {
       width: 100%;
       height: 280px;
@@ -174,6 +186,7 @@
       align-items: center;
       justify-content: center;
       border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
     }
 
     .main-img {
@@ -183,69 +196,102 @@
       height: auto;
       object-fit: contain;
       cursor: pointer;
+      transition: filter 0.3s ease;
     }
 
-    /* Card Content */
+    /* Black and White mode for Booked Items */
+    .card.is-booked .main-img {
+      filter: grayscale(100%);
+    }
+
+    /* Booked Ribbon Banner Across Image */
+    .booked-ribbon {
+      display: none;
+      position: absolute;
+      top: 25px;
+      right: -35px;
+      transform: rotate(45deg);
+      background-color: #dc2626;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 40px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .card.is-booked .booked-ribbon {
+      display: block;
+    }
+
+    /* Card Body Structure */
     .card-body {
       padding: 18px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
 
-    .card-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--maroon-dark);
-    }
-
-    .meta-row {
+    /* Status Badge Container */
+    .status-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
     }
 
-    /* Status Badges Styling */
     .badge {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       border: 1px solid transparent;
     }
 
-    /* Distinct highlight ONLY for Booked status */
+    /* Green Available Badge */
+    .badge-available { 
+      background: var(--status-available-bg); 
+      border-color: var(--status-available-border);
+      color: var(--status-available-text); 
+      font-size: 0.85rem;
+      padding: 6px 16px;
+    }
+
     .badge-booked { 
       background: var(--status-booked-bg); 
       border-color: var(--status-booked-border);
       color: var(--status-booked-text); 
     }
 
-    /* Default neutral styling for all other statuses */
     .badge-default { 
       background: #f5f5f4; 
       border-color: #e7e5e4;
       color: var(--text-muted); 
     }
 
+    /* Title & Meta */
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--maroon-dark);
+      margin-top: 2px;
+    }
+
+    .meta-row {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
     /* Gallery Thumbnails */
     .gallery-section {
       margin-top: auto;
-      padding-top: 14px;
+      padding-top: 12px;
       border-top: 1px dashed var(--border-color);
     }
 
@@ -274,25 +320,6 @@
       border: 1px solid var(--border-color);
       flex-shrink: 0;
       cursor: pointer;
-    }
-
-    /* Floating WhatsApp Button */
-    .floating-wa {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--whatsapp-color);
-      color: white;
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      z-index: 999;
-      text-decoration: none;
     }
 
     /* Lightbox Modal */
@@ -340,7 +367,14 @@
     <img src="images/logo.png" alt="Anshita Arts Logo" class="logo">
   </header>
 
-  <!-- Quick Mobile Contact Buttons -->
+  <h2 class="section-title">Our Creations</h2>
+
+  <!-- Item Cards Container -->
+  <div id="cardsWrapper" class="card-container">
+    <div class="state-msg">Loading catalog items...</div>
+  </div>
+
+  <!-- Frozen Sticky Contact Action Bar at Bottom -->
   <div class="contact-bar">
     <a href="tel:+919876543210" class="btn-contact btn-phone">
       <i class="fa-solid fa-phone"></i> Call Us
@@ -349,18 +383,6 @@
       <i class="fa-brands fa-whatsapp"></i> WhatsApp
     </a>
   </div>
-
-  <h2 class="section-title">Our Creations</h2>
-
-  <!-- Item Cards Container -->
-  <div id="cardsWrapper" class="card-container">
-    <div class="state-msg">Loading catalog items...</div>
-  </div>
-
-  <!-- Floating WhatsApp Action Button -->
-  <a href="https://wa.me/919876543210?text=Hello%20Anshita%20Arts,%20I%20have%20an%20inquiry" target="_blank" class="floating-wa" aria-label="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
 
   <!-- Lightbox Modal -->
   <div id="imageModal" class="modal" onclick="closeModal()">
@@ -377,13 +399,11 @@
       return idMatch && idMatch[1] ? `https://lh3.googleusercontent.com/d/${idMatch[1]}` : '';
     }
 
-    // Only 'booked' gets special badge class; everything else uses 'badge-default'
     function getStatusClass(status) {
       if (!status) return 'badge-default';
       const clean = status.toLowerCase().trim();
-      if (clean.includes('booked')) {
-        return 'badge-booked';
-      }
+      if (clean.includes('available')) return 'badge-available';
+      if (clean.includes('booked')) return 'badge-booked';
       return 'badge-default';
     }
 
@@ -438,12 +458,13 @@
 
           const title = row[1];
           const size = row[2];
-          const status = row[3];
+          const status = row[3] || '';
           const mainImgRaw = row[4] || '';
           const extraImgsRaw = row[5] || '';
 
           const mainImgSrc = formatDriveUrl(mainImgRaw);
           const statusClass = getStatusClass(status);
+          const isBooked = status.toLowerCase().includes('booked');
 
           const extraMatches = extraImgsRaw.match(/([a-zA-Z0-9_-]{25,})/g) || [];
           const extraImgUrls = extraMatches.map(id => `https://lh3.googleusercontent.com/d/${id}`);
@@ -463,8 +484,9 @@
           }
 
           const cardHtml = `
-            <div class="card">
+            <div class="card ${isBooked ? 'is-booked' : ''}">
               <div class="img-wrapper">
+                <div class="booked-ribbon">Booked</div>
                 <img src="${mainImgSrc}" 
                      class="main-img" 
                      alt="${title}" 
@@ -472,13 +494,20 @@
                      onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=No+Image';">
               </div>
               <div class="card-body">
-                <div class="card-header-row">
-                  <h3 class="card-title">${title}</h3>
+                <!-- 1. Status Badge -->
+                <div class="status-row">
                   <span class="badge ${statusClass}">${status}</span>
                 </div>
+                
+                <!-- 2. Title -->
+                <h3 class="card-title">${title}</h3>
+                
+                <!-- 3. Size -->
                 <div class="meta-row">
                   <span><strong>Size:</strong> ${size}</span>
                 </div>
+                
+                <!-- 4. More Images -->
                 ${extraImagesHtml}
               </div>
             </div>
