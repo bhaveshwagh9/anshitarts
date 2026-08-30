@@ -3,38 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anshita Arts - Catalogue</title>
+  <title>Anshita Arts - Exclusive Catalogue</title>
   
-  <!-- Modern Font & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      /* Palette inspired by Anshita Arts Logo */
-      --bg-color: #fcf8f2;
+      /* Palette inspired by Indian Traditional Art & Luxury */
+      --bg-color: #fbf8f3;
       --card-bg: #ffffff;
-      --text-main: #2b1810;
-      --text-muted: #735a4c;
-      --border-color: #ebdcd0;
+      --text-main: #23120b;
+      --text-muted: #6e574b;
+      --border-color: #f1e4d8;
       
-      --maroon: #700918;
-      --maroon-dark: #4a030e;
-      --gold: #d4af37;
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
-      --maroon-gradient: linear-gradient(135deg, #800020 0%, #4a0012 100%);
-      --whatsapp-color: #25d366;
+      --maroon: #6b0918;
+      --maroon-dark: #42020b;
+      --maroon-gradient: linear-gradient(135deg, #7a0c1e 0%, #42020b 100%);
       
-      /* Badge Custom Colors */
-      --status-available-bg: #dcfce7;
-      --status-available-border: #86efac;
-      --status-available-text: #15803d;
+      --gold: #c69c3a;
+      --gold-light: #f7eedb;
+      --gold-gradient: linear-gradient(135deg, #dfb756 0%, #a87e22 100%);
+      
+      --whatsapp-color: #1eb954;
+      --whatsapp-gradient: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
 
-      --status-booked-bg: #fee2e2;
-      --status-booked-border: #fca5a5;
-      --status-booked-text: #991b1b;
+      /* Status Badges */
+      --status-available-bg: #e6f9ed;
+      --status-available-border: #a3e6b9;
+      --status-available-text: #0e622b;
+
+      --status-booked-bg: #fde8e8;
+      --status-booked-border: #f8b4b4;
+      --status-booked-text: #9b1c1c;
     }
 
     * {
@@ -47,95 +50,131 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(223, 183, 86, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(107, 9, 24, 0.04) 0%, transparent 40%);
       color: var(--text-main);
-      padding-bottom: 100px; /* Space for the frozen bottom contact bar */
+      padding-bottom: 110px;
       line-height: 1.5;
     }
 
-    /* Header */
+    /* Luxury Header */
     header {
-      background: #ffffff;
-      border-bottom: 3px solid var(--gold);
-      padding: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(223, 183, 86, 0.4);
+      padding: 16px 20px;
       text-align: center;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 15px rgba(112, 9, 24, 0.08);
+      box-shadow: 0 4px 20px rgba(107, 9, 24, 0.06);
     }
 
     .logo {
-      max-width: 220px;
+      max-width: 210px;
       height: auto;
       display: block;
       margin: 0 auto;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
     }
 
-    /* Frozen Bottom Action Bar (Call & WhatsApp) */
-    .contact-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 12px 16px;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .btn-contact {
-      flex: 1;
-      max-width: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn-contact:active {
-      transform: scale(0.96);
-    }
-
-    .btn-phone {
-      background: var(--maroon-gradient);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(112, 9, 24, 0.3);
-    }
-
-    .btn-wa {
-      background-color: var(--whatsapp-color);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
-    }
-
+    /* Title Styling */
     .section-title {
+      font-family: 'Cinzel', serif;
       text-align: center;
-      font-size: 1.35rem;
+      font-size: 1.6rem;
       font-weight: 700;
+      letter-spacing: 0.03em;
       color: var(--maroon);
-      margin: 20px 0 20px 0;
+      margin: 24px 0 16px 0;
       position: relative;
     }
 
     .section-title::after {
       content: '';
       display: block;
-      width: 50px;
+      width: 60px;
       height: 3px;
       background: var(--gold-gradient);
-      margin: 6px auto 0 auto;
-      border-radius: 2px;
+      margin: 8px auto 0 auto;
+      border-radius: 4px;
+    }
+
+    /* Controls (Search & Filters) */
+    .controls-container {
+      max-width: 1100px;
+      margin: 0 auto 24px auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (min-width: 640px) {
+      .controls-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 30px;
+      font-size: 0.95rem;
+      background: #ffffff;
+      outline: none;
+      font-family: inherit;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 4px 14px rgba(198, 156, 58, 0.2);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 9px 20px;
+      border: 1.5px solid var(--border-color);
+      background: #ffffff;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .filter-btn.active {
+      background: var(--maroon-gradient);
+      color: #ffffff;
+      border-color: var(--maroon);
+      box-shadow: 0 4px 12px rgba(107, 9, 24, 0.25);
     }
 
     /* Grid Layout */
@@ -145,7 +184,7 @@
       padding: 0 16px;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 28px;
     }
 
     @media (min-width: 640px) {
@@ -160,27 +199,30 @@
       }
     }
 
-    /* Card Styling */
+    /* Premium Card Styling */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 6px 18px rgba(112, 9, 24, 0.05);
+      box-shadow: 0 10px 25px rgba(107, 9, 24, 0.04);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
     }
 
     .card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(107, 9, 24, 0.1);
+      border-color: rgba(223, 183, 86, 0.5);
     }
 
-    /* Image Wrapper */
+    /* Card Image Wrapper */
     .img-wrapper {
       width: 100%;
-      height: 280px;
-      background-color: #f7f3ee;
+      height: 290px;
+      background: linear-gradient(180deg, #fdfbf7 0%, #f4eee6 100%);
       position: relative;
       display: flex;
       align-items: center;
@@ -190,35 +232,39 @@
     }
 
     .main-img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 92%;
+      max-height: 92%;
       width: auto;
       height: auto;
       object-fit: contain;
       cursor: pointer;
-      transition: filter 0.3s ease;
+      transition: transform 0.4s ease, filter 0.4s ease;
     }
 
-    /* Black and White mode for Booked Items */
+    .card:hover .main-img {
+      transform: scale(1.03);
+    }
+
+    /* Booked B&W Theme */
     .card.is-booked .main-img {
-      filter: grayscale(100%);
+      filter: grayscale(100%) contrast(1.05);
     }
 
-    /* Booked Ribbon Banner Across Image */
+    /* Elegant Ribbon Banner */
     .booked-ribbon {
       display: none;
       position: absolute;
-      top: 25px;
-      right: -35px;
+      top: 22px;
+      right: -36px;
       transform: rotate(45deg);
-      background-color: #dc2626;
+      background: linear-gradient(135deg, #d32f2f 0%, #9a0007 100%);
       color: #ffffff;
       font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 6px 40px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      padding: 6px 42px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       z-index: 10;
       pointer-events: none;
     }
@@ -227,39 +273,37 @@
       display: block;
     }
 
-    /* Card Body Structure */
+    /* Card Details */
     .card-body {
-      padding: 18px;
+      padding: 20px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
-    /* Status Badge Container */
     .status-row {
       display: flex;
       align-items: center;
     }
 
     .badge {
-      display: inline-block;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       border: 1px solid transparent;
     }
 
-    /* Green Available Badge */
     .badge-available { 
       background: var(--status-available-bg); 
       border-color: var(--status-available-border);
       color: var(--status-available-text); 
-      font-size: 0.85rem;
-      padding: 6px 16px;
     }
 
     .badge-booked { 
@@ -274,32 +318,62 @@
       color: var(--text-muted); 
     }
 
-    /* Title & Meta */
     .card-title {
+      font-family: 'Cinzel', serif;
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--maroon-dark);
       margin-top: 2px;
+      line-height: 1.3;
     }
 
     .meta-row {
       font-size: 0.92rem;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-row i {
+      color: var(--gold);
+    }
+
+    /* Direct Inquiry Button */
+    .btn-item-inquire {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--whatsapp-gradient);
+      color: #ffffff;
+      padding: 11px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 6px;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .btn-item-inquire:hover {
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+      transform: translateY(-1px);
     }
 
     /* Gallery Thumbnails */
     .gallery-section {
       margin-top: auto;
-      padding-top: 12px;
+      padding-top: 14px;
       border-top: 1px dashed var(--border-color);
     }
 
     .gallery-title {
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: var(--gold);
       margin-bottom: 8px;
     }
@@ -312,14 +386,68 @@
     }
 
     .thumb-img {
-      width: 60px;
-      height: 60px;
+      width: 58px;
+      height: 58px;
       object-fit: contain;
-      background-color: #f7f3ee;
+      background-color: #fdfbf7;
       border-radius: 10px;
       border: 1px solid var(--border-color);
       flex-shrink: 0;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .thumb-img:hover {
+      border-color: var(--gold);
+      transform: scale(1.05);
+    }
+
+    /* Frozen Bottom Action Bar */
+    .contact-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(223, 183, 86, 0.3);
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-contact {
+      flex: 1;
+      max-width: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-phone {
+      background: var(--maroon-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(107, 9, 24, 0.3);
+    }
+
+    .btn-wa {
+      background: var(--whatsapp-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-contact:active {
+      transform: scale(0.96);
     }
 
     /* Lightbox Modal */
@@ -331,50 +459,68 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.92);
+      background-color: rgba(15, 8, 5, 0.94);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
     }
 
     .modal-content {
-      max-width: 94%;
+      max-width: 92%;
       max-height: 85vh;
-      border-radius: 8px;
+      border-radius: 12px;
       object-fit: contain;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
 
     .modal-close {
       position: absolute;
-      top: 16px;
-      right: 20px;
-      color: white;
-      font-size: 2.2rem;
+      top: 20px;
+      right: 24px;
+      color: #ffffff;
+      font-size: 2.5rem;
       cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .modal-close:hover {
+      opacity: 1;
     }
 
     .state-msg {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
       color: var(--text-muted);
+      font-size: 1.05rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with Brand Logo -->
   <header>
     <img src="images/logo.png" alt="Anshita Arts Logo" class="logo">
   </header>
 
   <h2 class="section-title">Our Creations</h2>
 
-  <!-- Item Cards Container -->
+  <div class="controls-container">
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search creations by title or size..." oninput="filterItems()">
+    </div>
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn" onclick="setFilter('available', this)">Available</button>
+      <button class="filter-btn" onclick="setFilter('booked', this)">Booked</button>
+    </div>
+  </div>
+
   <div id="cardsWrapper" class="card-container">
     <div class="state-msg">Loading catalog items...</div>
   </div>
 
-  <!-- Frozen Sticky Contact Action Bar at Bottom -->
   <div class="contact-bar">
     <a href="tel:+917020496791" class="btn-contact btn-phone">
       <i class="fa-solid fa-phone"></i> Call Us
@@ -384,7 +530,6 @@
     </a>
   </div>
 
-  <!-- Lightbox Modal -->
   <div id="imageModal" class="modal" onclick="closeModal()">
     <span class="modal-close">&times;</span>
     <img id="modalImage" class="modal-content" src="" alt="Enlarged view">
@@ -394,10 +539,14 @@
     const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRebhz2aYlKqUGn23T5S_P8w_eqKFs7GzL9SJBTXYnb-KOlaPsiH6J93XIT2rsRhi3kQgsDTPZakiHm/pub?output=csv';
     const whatsappPhone = '917020496791';
 
+    let allCatalogItems = [];
+    let currentFilter = 'all';
+
+    // Compress Google Drive images to 800px width for fast mobile loading
     function formatDriveUrl(rawInput) {
       if (!rawInput) return '';
       const idMatch = rawInput.match(/([a-zA-Z0-9_-]{25,})/);
-      return idMatch && idMatch[1] ? `https://lh3.googleusercontent.com/d/${idMatch[1]}` : '';
+      return idMatch && idMatch[1] ? `https://lh3.googleusercontent.com/d/${idMatch[1]}=w800` : '';
     }
 
     function getStatusClass(status) {
@@ -440,22 +589,47 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
+    function setFilter(type, btn) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterItems();
+    }
+
+    function filterItems() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const container = document.getElementById('cardsWrapper');
+      container.innerHTML = '';
+
+      const filtered = allCatalogItems.filter(item => {
+        const matchesQuery = item.title.toLowerCase().includes(query) || item.size.toLowerCase().includes(query);
+        const matchesFilter = currentFilter === 'all' || 
+          (currentFilter === 'available' && item.isAvailable) || 
+          (currentFilter === 'booked' && item.isBooked);
+        return matchesQuery && matchesFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="state-msg">No matching creations found.</div>';
+        return;
+      }
+
+      filtered.forEach(item => {
+        container.innerHTML += item.html;
+      });
+    }
+
     async function fetchGalleryData() {
       try {
         const response = await fetch(sheetCsvUrl);
         const csvText = await response.text();
-        
         const rows = parseCsv(csvText);
-        const container = document.getElementById('cardsWrapper');
-        container.innerHTML = '';
 
-        let validCardCount = 0;
+        allCatalogItems = [];
 
         for (let i = 1; i < rows.length; i++) {
           const row = rows[i];
           if (row.length < 4 || !row[1]) continue;
-
-          validCardCount++;
 
           const title = row[1];
           const size = row[2];
@@ -466,23 +640,26 @@
           const mainImgSrc = formatDriveUrl(mainImgRaw);
           const statusClass = getStatusClass(status);
           const isBooked = status.toLowerCase().includes('booked');
+          const isAvailable = status.toLowerCase().includes('available');
 
           const extraMatches = extraImgsRaw.match(/([a-zA-Z0-9_-]{25,})/g) || [];
-          const extraImgUrls = extraMatches.map(id => `https://lh3.googleusercontent.com/d/${id}`);
+          const extraImgUrls = extraMatches.map(id => `https://lh3.googleusercontent.com/d/${id}=w800`);
 
           let extraImagesHtml = '';
           if (extraImgUrls.length > 0) {
             extraImagesHtml = `
               <div class="gallery-section">
-                <div class="gallery-title">More Images</div>
+                <div class="gallery-title">More Views</div>
                 <div class="gallery-grid">
                   ${extraImgUrls.map(url => `
-                    <img src="${url}" class="thumb-img" alt="Thumbnail" onclick="openModal('${url}')" onerror="this.style.display='none'">
+                    <img src="${url}" class="thumb-img" alt="Thumbnail" loading="lazy" onclick="openModal('${url}')" onerror="this.style.display='none'">
                   `).join('')}
                 </div>
               </div>
             `;
           }
+
+          const itemWaText = encodeURIComponent(`Hello Anshita Arts, I would like to inquire about: "${title}" (Size: ${size}).`);
 
           const cardHtml = `
             <div class="card ${isBooked ? 'is-booked' : ''}">
@@ -491,34 +668,42 @@
                 <img src="${mainImgSrc}" 
                      class="main-img" 
                      alt="${title}" 
+                     loading="lazy"
                      onclick="openModal('${mainImgSrc}')"
                      onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=No+Image';">
               </div>
               <div class="card-body">
-                <!-- 1. Status Badge -->
                 <div class="status-row">
-                  <span class="badge ${statusClass}">${status}</span>
+                  <span class="badge ${statusClass}">
+                    <i class="fa-solid ${isBooked ? 'fa-lock' : 'fa-circle-check'}"></i> ${status}
+                  </span>
                 </div>
                 
-                <!-- 2. Title -->
                 <h3 class="card-title">${title}</h3>
                 
-                <!-- 3. Size -->
                 <div class="meta-row">
-                  <span><strong>Size:</strong> ${size}</span>
+                  <i class="fa-solid fa-ruler-combined"></i> <span><strong>Size:</strong> ${size}</span>
                 </div>
                 
-                <!-- 4. More Images -->
+                <a href="https://wa.me/${whatsappPhone}?text=${itemWaText}" target="_blank" class="btn-item-inquire">
+                  <i class="fa-brands fa-whatsapp"></i> Inquire About This Creation
+                </a>
+
                 ${extraImagesHtml}
               </div>
             </div>
           `;
-          container.innerHTML += cardHtml;
+
+          allCatalogItems.push({
+            title,
+            size,
+            isBooked,
+            isAvailable,
+            html: cardHtml
+          });
         }
 
-        if (validCardCount === 0) {
-          container.innerHTML = '<div class="state-msg">No items found in catalog.</div>';
-        }
+        filterItems();
       } catch (err) {
         console.error('Failed to parse sheet data', err);
         document.getElementById('cardsWrapper').innerHTML = '<div class="state-msg">Error loading catalog.</div>';
