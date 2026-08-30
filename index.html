@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anshita Arts - Exclusive Catalogue</title>
   
+  <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -58,17 +59,15 @@
       line-height: 1.5;
     }
 
-    /* Luxury Header */
+    /* Normal Scrolling Header (Non-Sticky) */
     header {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
       border-bottom: 2px solid rgba(223, 183, 86, 0.4);
       padding: 16px 20px;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(107, 9, 24, 0.06);
+      position: relative; /* Scrolls naturally with the page */
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(107, 9, 24, 0.04);
     }
 
     .logo {
@@ -499,12 +498,14 @@
 </head>
 <body>
 
+  <!-- Non-Sticky Header -->
   <header>
     <img src="images/logo.png" alt="Anshita Arts Logo" class="logo">
   </header>
 
   <h2 class="section-title">Our Creations</h2>
 
+  <!-- Search & Filter Controls -->
   <div class="controls-container">
     <div class="search-wrapper">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -517,10 +518,12 @@
     </div>
   </div>
 
+  <!-- Cards Grid -->
   <div id="cardsWrapper" class="card-container">
     <div class="state-msg">Loading catalog items...</div>
   </div>
 
+  <!-- Frozen Sticky Bottom Bar -->
   <div class="contact-bar">
     <a href="tel:+917020496791" class="btn-contact btn-phone">
       <i class="fa-solid fa-phone"></i> Call Us
@@ -530,6 +533,7 @@
     </a>
   </div>
 
+  <!-- Lightbox Modal -->
   <div id="imageModal" class="modal" onclick="closeModal()">
     <span class="modal-close">&times;</span>
     <img id="modalImage" class="modal-content" src="" alt="Enlarged view">
